@@ -1,0 +1,17 @@
+<ion-content padding>
+  <div class="login">
+    <img style="width: 90%;" src="assets/dashboard.svg">
+    <h4 ion-text color="primary">Login</h4>
+  <ion-list>
+      <ion-item>
+          <ion-label position="floating">Username</ion-label>
+          <ion-input [(ngModel)]="username" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [(ngModel)]="password" type="password" ></ion-input>
+        </ion-item>
+  </ion-list>
+  <ion-button class="login-button" expand="full" shape="round"  (click)="login()">LOGIN</ion-button>
+</div>
+</ion-content>

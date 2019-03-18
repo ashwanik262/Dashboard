@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar class="new-background-color">
+    <ion-title>fuelprice</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>City</ion-label>
+    <ion-select (ionChange)="onCityChange(city)" [(ngModel)]="city" [interfaceOptions]="customPopoverOptions"
+      interface="popover" placeholder="Select One">
+      <ion-select-option *ngFor="let item of cities.cities" value="{{item}}">{{item}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <div *ngIf="petrolData" class="graph-div">
+    <ion-item-divider style="margin-bottom: 10px;">
+      <ion-label>
+        Petrol & Deisel Price (INR)
+      </ion-label>
+    </ion-item-divider>
+    <ion-row style="margin-top: 20px;margin-bottom:20px">
+      <ion-col size="6">
+        <ion-card style="padding: 4px;height: 140px;"
+          style="margin:0px;width:100%;text-align: center;border-top: 6px solid #f25454;">
+          <ion-item-divider style="text-align: center;">
+            <span style="color: #888"><strong>Petrol</strong> </span>
+          </ion-item-divider>
+          <h4 style="margin-top: 37px;color: #f25454 "> &#8377; {{petrolData.price}}</h4>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card style="padding: 4px" style="margin:0px;width:100%;text-align: center;border-top: 6px solid #607D8B;">
+          <ion-item-divider style="text-align: center;">
+            <span style="color: #888" ></span><strong>Diesel</strong>
+          </ion-item-divider>
+          <h4 style="margin-top: 37px;color: #607D8B">&#8377; {{dieselData.price}}</h4>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+
+</ion-content>

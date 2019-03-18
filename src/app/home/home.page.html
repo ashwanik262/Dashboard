@@ -1,0 +1,141 @@
+<ion-header>
+  <ion-toolbar class="new-background-color">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Home
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to refresh"
+          refreshingSpinner="circles"
+          refreshingText="Refreshing...">
+        </ion-refresher-content>
+      </ion-refresher>
+    <ion-item >
+        <ion-label style="color: #f25454"> country</ion-label>
+        <ion-select (ionChange)="onCountryChange(country)"  [(ngModel)]="country" [interfaceOptions]="customPopoverOptions" interface="popover" placeholder="Select One">
+          <ion-select-option   *ngFor="let item of countries.countries" value="{{item}}">{{item}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="graph-div">
+          <ion-item-divider style="margin-bottom: 10px;">
+                      <ion-label>
+                          Population for today and tomorrow
+                        </ion-label>
+            </ion-item-divider>
+        <ion-row style="margin-top: 20px;margin-bottom:20px">
+          <ion-col  *ngFor="let item of todayPopulation.total_population" size="6">
+                <ion-card style="padding: 4px" style="margin:0px;width:100%;text-align: center;border-top: 6px solid #4CAF50;;">
+                  <ion-item-divider style="text-align: center;">
+                      <span style="color: #888" ><strong>{{item.date}}</strong> </span>
+                    </ion-item-divider>
+                     <h6 style="margin-top: 37px ">  {{item.population | number}}</h6>
+                </ion-card>
+          </ion-col>
+        </ion-row>
+      </div>
+    <div class="graph-div">
+        <ion-item-divider style="margin-bottom: 10px;">
+            <ion-row style="width: 100%;">
+                <ion-col align-self-center  size="6">
+                    <ion-label>
+                        Agewise Popultion(2018)
+                      </ion-label>
+                </ion-col>
+                <ion-col style="color: #f25454" (click)="openfilter()"  align-self-center size="6">
+                    <ion-icon name="funnel"></ion-icon>  Filter <ion-icon  style="float: right;" *ngIf="!isFilterOpen" name="arrow-dropdown"></ion-icon> 
+                    <ion-icon style="float: right;" *ngIf="isFilterOpen" name="arrow-dropup"></ion-icon>
+                </ion-col>
+              </ion-row>
+          </ion-item-divider>
+          <div style="margin-bottom: 10px" *ngIf="isFilterOpen">
+              <ion-item>
+                  <ion-range (ionChange)="range($event)"  pin="true" dualKnobs="true"  min="20" max="50"   color="secondary">
+                    <ion-label slot="start">20</ion-label>
+                    <ion-label slot="end">50</ion-label>
+                  </ion-range>
+                </ion-item>
+          </div>
+        <canvas class="canvas" width="600" height="600" #barCanvas></canvas>
+      </div>
+
+      <div class="graph-div">
+          <ion-item-divider style="margin-bottom: 10px;">
+              <ion-row style="width: 100%;">
+                  <ion-col size="8">
+                      <ion-label>
+                          Mortality Distribution(Today)
+                        </ion-label>
+                  </ion-col>
+                  <!-- <ion-col style="color: #f25454" (click)="openMortalityFilter()"  align-self-center size="4">
+                      <ion-icon name="funnel"></ion-icon>  Filter <ion-icon  style="float: right;" *ngIf="!isMortalityFilterOpen" name="arrow-dropdown"></ion-icon> 
+                      <ion-icon style="float: right;" *ngIf="isMortalityFilterOpen" name="arrow-dropup"></ion-icon>
+                  </ion-col> -->
+                </ion-row>
+            </ion-item-divider>
+            <div style="margin-bottom: 10px" *ngIf="isMortalityFilterOpen">
+                <ion-item>
+                    <ion-range (ionChange)="mortalityRange($event)"  pin="true" dualKnobs="true"  min="30" max="135" step="5"   color="secondary">
+                      <ion-label slot="start">30</ion-label>
+                      <ion-label slot="end">135</ion-label>
+                    </ion-range>
+                  </ion-item>
+            </div>
+          <canvas class="canvas" width="600" height="600" #lineCanvas></canvas>
+        </div>
+    <!-- <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{data1['country']}}</ion-card-subtitle>
+          <ion-card-title>{{data1['post code']}}</ion-card-title>
+        </ion-card-header>
+    
+        <ion-card-content>
+          <ul>
+            <li *ngFor="let p of data1.places">{{p['place name']}}</li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{data2['country']}}</ion-card-subtitle>
+          <ion-card-title>{{data2['post code']}}</ion-card-title>
+        </ion-card-header>
+    
+        <ion-card-content>
+          <ul>
+            <li *ngFor="let p of data2.places">{{p['place name']}}</li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{data3['country']}}</ion-card-subtitle>
+          <ion-card-title>{{data3['post code']}}</ion-card-title>
+        </ion-card-header>
+    
+        <ion-card-content>
+          <ul>
+            <li *ngFor="let p of data3.places">{{p['place name']}}</li>
+          </ul>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-subtitle>{{data4['country']}}</ion-card-subtitle>
+          <ion-card-title>{{data4['post code']}}</ion-card-title>
+        </ion-card-header>
+    
+        <ion-card-content>
+          <ul>
+            <li *ngFor="let p of data4.places">{{p['place name']}}</li>
+          </ul>
+        </ion-card-content>
+      </ion-card> -->
+</ion-content>

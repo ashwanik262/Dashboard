@@ -1,0 +1,34 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu>
+      <ion-content>
+          <div menuClose class="profile" (click)="Profile()">
+              <ion-item class="profile-item">
+                <div class="profile-detail">
+                  <p class="profile-name">Ashwani kumar</p>
+                  <p><span>+91</span> <span>8802810451</span></p>
+                </div>
+              </ion-item>
+            </div>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item (click)="pages(p.url)">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer toggle  (click)="logoutAlert()">
+          <ion-menu-toggle auto-hide="false" >
+        <ion-toolbar>
+          <ion-button expand="full">LOGOUT</ion-button>
+        </ion-toolbar>
+        </ion-menu-toggle>
+      </ion-footer>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>
