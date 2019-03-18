@@ -52,7 +52,6 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.getCountryList();
     this.onCountryChange(this.country);
-    this.mortalityDistribution(this.country)
   }
 
   getCountryList() {
@@ -86,6 +85,7 @@ export class HomePage implements OnInit {
       // for (let index = 1; index <this.femaleMortalityData.length; index++) {
       //   this.femaleMortalityPercent.push(this.femaleMortalityData[index].mortality_percent)
       // }
+      console.log("aggeayyay",this.mortalityAgeArray)
       this.initLineChart();
     }, err => {
       console.log(err);
@@ -154,12 +154,6 @@ export class HomePage implements OnInit {
             borderColor: "#24d6ea",
             data: this.male
           }
-          // {
-          //     label: "Hybrid",
-          //     backgroundColor: "rgba(108, 117, 193, 1)",
-          //     borderColor: "rgba(108, 117, 193, 1)",
-          //     data: this.MixData
-          // }
         ]
       },
       options: {
